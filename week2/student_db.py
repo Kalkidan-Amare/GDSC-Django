@@ -10,7 +10,7 @@ class Student:
             student=self.students[name]
             print(f"\nName {name}\nAge {student['age']}\nGrade {student['grade']}\n")
         else:
-            print(f"Student {name} not found!\n")
+            print(f"\nStudent {name} not found!\n")
 
     def list_all(self):
         for name, student in self.students.items():
@@ -23,8 +23,8 @@ class Student:
                 student['age'] = age
             if (grade != None):
                 student['grade'] = grade
-            else:
-                print(f"Student {name} not found!\n")
+        else:
+            print(f"\nStudent {name} not found!\n")
 
     def delete_student(self,name):
         if name in self.students:
