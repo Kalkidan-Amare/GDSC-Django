@@ -7,6 +7,7 @@ for i in range(1,51):
             counter+=1
         elif i%5==0:
             print("Five",end=' ')
+            counter+=1
         else:
             print(i,end=' ')
 print(f"\nTotal {sum= } count of numbers replaced {counter}")
