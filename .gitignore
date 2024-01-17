@@ -137,5 +137,5 @@ GitHub.sublime-settings
 !.vscode/extensions.json 
 .history
 
-blog/blog/__pycache__
-blog/blogger/__pycache__
+blogger/blog/__pycache__
+blogger/blogger/__pycache__
