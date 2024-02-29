@@ -1,33 +1,27 @@
-from django.db import models
-from django.db.models.query import QuerySet
 from django.utils import timezone
+from django.db import models
 from django.contrib.auth.models import User
 
-class PublishedManager(models.Manager):
-    def get_queryset(self):
-        return super().get_queryset().filter(status=Post.Status.PUBLISHED)
-
+# Create your models here.
 class Post(models.Model):
-    title = models.CharField(max_length=100)
-    slug = models.SlugField(max_length=100)
-    body = models.TextField()
-    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='blog_post')
-
+    title=models.CharField(max_length=100)
+    slug=models.SlugField(max_length=100)
+    body=models.TextField()
+    author=models.ForeignKey(User, on_delete=models.CASCADE, related_name='blog_post')
     class Status(models.TextChoices):
-        DRAFT = 'DF' , 'Draft'
-        PUBLISHED = 'PB' , 'Published'
+        DRAFT=('DF', 'Draft')
+        PUBLISHED=('PD','Publilshed')
+    
+    status=models.CharField(max_length=2, choices=Status.choices, default=Status.DRAFT)
 
-    status = models.CharField(max_length=2,choices=Status.choices,default=Status.DRAFT)
-    publish = models.DateTimeField(default=timezone.now)
-    created = models.DateTimeField(auto_now_add=True)
-    updated = models.DateTimeField(auto_now=True)
-
-    objects = models.Manager()
-    published = PublishedManager()
+    publish=models.DateTimeField(default=timezone.now)
+    created=models.DateTimeField(auto_now_add=True)
+    updated=models.DateTimeField(auto_now=True)
 
     class Meta:
-        ordering = ['-publish']
+        ordering=['-publish']
+        indexes=[
+            models.Index(fields=['-publish'])
+        ]
     def __str__(self):
         return self.slug
-    
-# Create your models here.
